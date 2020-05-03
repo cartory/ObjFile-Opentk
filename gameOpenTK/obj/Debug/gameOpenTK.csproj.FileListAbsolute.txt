@@ -1,0 +1,11 @@
+C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\bin\Debug\gameOpenTK.exe.config
+C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\bin\Debug\gameOpenTK.exe
+C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\bin\Debug\gameOpenTK.pdb
+C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\bin\Debug\OpenTK.dll
+C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\bin\Debug\OpenTK.pdb
+C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\bin\Debug\OpenTK.xml
+C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\obj\Debug\gameOpenTK.csprojAssemblyReference.cache
+C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\obj\Debug\gameOpenTK.csproj.CoreCompileInputs.cache
+C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\obj\Debug\gameOpenTK.csproj.CopyComplete
+C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\obj\Debug\gameOpenTK.exe
+C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\obj\Debug\gameOpenTK.pdb
