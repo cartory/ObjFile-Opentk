@@ -50,6 +50,8 @@ namespace gameOpenTK.controllers
                 loadImage(@"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\images\piel.jpg"));
             textures.Add("azul_tex.jpg",
                 loadImage(@"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\images\azul_tex.jpg"));
+            textures.Add("tiger_tex.jpg",
+                loadImage(@"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\images\tiger_tex.jpg"));
         }
 
         int loadImage(Bitmap image)

@@ -63,6 +63,7 @@
     <None Include="core\files\objs\cow.obj" />
     <None Include="core\files\objs\pumpkin.obj" />
     <None Include="core\files\objs\teapot.obj" />
+    <None Include="core\files\objs\teddy.obj" />
     <None Include="core\files\shaders\fs.glsl" />
     <None Include="core\files\shaders\fs_tex.glsl" />
     <None Include="core\files\shaders\vs.glsl" />
@@ -76,6 +77,7 @@
     <Content Include="core\files\images\opentksquare.png" />
     <Content Include="core\files\images\opentksquare2.png" />
     <Content Include="core\files\images\piel.jpg" />
+    <Content Include="core\files\images\tiger_tex.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

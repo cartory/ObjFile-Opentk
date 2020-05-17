@@ -39,6 +39,16 @@ namespace gameOpenTK.models
             ShaderManager.Instance.shaders[shader].DisableVertexAttribArrays();
         }
 
+        //  MOVING THE ELEEMENTS
+        public void traslateTX(string key, bool dir) => ((Object)list[key]).traslateX(dir);
+        public void traslateTY(string key, bool dir) => ((Object)list[key]).traslateY(dir);
+        public void traslateTZ(string key, bool dir) => ((Object)list[key]).traslateZ(dir);
+        public void rotateTX(string key, bool dir) => ((Object)list[key]).rotateX(dir);
+        public void rotateTY(string key, bool dir) => ((Object)list[key]).rotateY(dir);
+        public void rotateTZ(string key, bool dir) => ((Object)list[key]).rotateZ(dir);
+        public void scaleT(string key, bool plus) => ((Object)list[key]).scaleObj(plus);
+        //
+
         public void Update(Camera cam, Size ClientSize, int vertCount = 0)
         {
             List<int> inds = new List<int>();

@@ -41,23 +41,16 @@ namespace gameOpenTK.controllers
             cam.MouseSensitivity = 0.0025f;
             cam.Position += new Vector3(0f, 0f, 5f);
             lastMousePos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
-
-            Object cow = Object.LoadFromFile(@"C:\Users\cartory\source\repos\appOpentk\appOpentk\core\objs\cow.obj");
-            Object teapot = Object.LoadFromFile(@"C:\Users\cartory\source\repos\appOpentk\appOpentk\core\objs\teapot.obj");
-            //Object pumpkin = Object.LoadFromFile(@"C:\Users\cartory\source\repos\appOpentk\appOpentk\core\objs\pumpkin.obj");
-
-            teapot.TextureID = ShaderManager.Instance.textures["azul_tex.jpg"];
-            teapot.Position = new Vector3(5f, -1, 3);
-
-            scene.AddT("cow", cow);
-            scene.AddT("teapot", teapot);
-            //scene.AddT("pumpkin", pumpkin);
+            Object teddy = Object.LoadFromFile(@"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\objs\teddy.obj");
+            teddy.TextureID = ShaderManager.Instance.textures["tiger_tex.jpg"];
+            teddy.Scale = .1f;
+            scene.AddT("teddy", teddy);
         }
 
         public void OnLoad()
         {
             initProgram();
-            GL.ClearColor(Color.CornflowerBlue);
+            GL.ClearColor(Color.Gray);
             GL.PointSize(3f);
         }
         public void OnRenderFrame(FrameEventArgs e, int Width, int Height)
@@ -96,6 +89,52 @@ namespace gameOpenTK.controllers
             {
                 cam.Move(0.1f, 0f, 0f);
             }
+            // MOVING THE TEDDY BEAR
+            if (Keyboard.GetState().IsKeyDown(Key.Z))
+            {
+                scene.rotateTX("teddy", true);
+            }
+            if (Keyboard.GetState().IsKeyDown(Key.X))
+            {
+                scene.rotateTY("teddy", true);
+            }
+            if (Keyboard.GetState().IsKeyDown(Key.C))
+            {
+                scene.rotateTZ("teddy", true);
+            }
+            if (Keyboard.GetState().IsKeyDown(Key.M))
+            {
+                scene.scaleT("teddy", true);
+            }
+            if (Keyboard.GetState().IsKeyDown(Key.N))
+            {
+                scene.scaleT("teddy", false);
+            }
+            if (Keyboard.GetState().IsKeyDown(Key.Right))
+            {
+                scene.traslateTX("teddy", true);
+            }
+            if (Keyboard.GetState().IsKeyDown(Key.Left))
+            {
+                scene.traslateTX("teddy", false);
+            }
+            if (Keyboard.GetState().IsKeyDown(Key.Up))
+            {
+                scene.traslateTY("teddy", true);
+            }
+            if (Keyboard.GetState().IsKeyDown(Key.Down))
+            {
+                scene.traslateTY("teddy", false);
+            }
+            if (Keyboard.GetState().IsKeyDown(Key.Number1))
+            {
+                scene.traslateTZ("teddy", true);
+            }
+            if (Keyboard.GetState().IsKeyDown(Key.Number3))
+            {
+                scene.traslateTZ("teddy", false);
+            }
+            //  //  //
 
             if (Keyboard.GetState().IsKeyDown(Key.Q))
             {
@@ -106,7 +145,6 @@ namespace gameOpenTK.controllers
             {
                 cam.Move(0f, 0f, -0.1f);
             }
-
             if (Focused)
             {
                 Vector2 delta = lastMousePos - new Vector2(Mouse.GetState().X, Mouse.GetState().Y);

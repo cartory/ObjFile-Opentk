@@ -14,7 +14,9 @@ namespace gameOpenTK.models
     {
         public Vector3 Position = Vector3.Zero;
         public Vector3 Rotation = Vector3.Zero;
-        public Vector3 Scale = Vector3.One;
+        public float Scale = 1;
+        public float theta = .1f;
+        public float step = .1f;
 
         public virtual Hashtable list { get; set; }
         public virtual int VertCount { get; set; }
@@ -22,6 +24,8 @@ namespace gameOpenTK.models
         public virtual int ColorDataCount { get; set; }
 
         public Matrix4 ModelMatrix = Matrix4.Identity;
+        public Matrix4 matriXRotation = Matrix4.Identity;
+        public Matrix4 matrixContainer = Matrix4.Identity;
         public Matrix4 ViewProjectionMatrix = Matrix4.Identity;
         public Matrix4 ModelViewProjectionMatrix = Matrix4.Identity;
 
