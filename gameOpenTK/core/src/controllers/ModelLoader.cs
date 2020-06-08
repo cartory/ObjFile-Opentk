@@ -18,8 +18,10 @@ namespace gameOpenTK.controllers
         public static Loader Instance { get => instance; }
         #endregion
 
-        const string path = @"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\objs\";
-        public Part LoadFromFile(string name, string filename)
+        //int textureID = ShaderManager.Instance.textures["container"];
+        string path = @"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\objs\";
+
+        public Part LoadFromFile(string name, string filename, int textureID = 0)
         {
             Part obj = null;
             try
@@ -27,6 +29,10 @@ namespace gameOpenTK.controllers
                 using (StreamReader reader = new StreamReader(new FileStream($"{path}{filename}", FileMode.Open, FileAccess.Read)))
                 {
                     obj = LoadFromString(reader.ReadToEnd(), name);
+                    if (textureID != 0)
+                    {
+                        obj.TextureID = textureID;
+                    }
                 }
             }
             catch (FileNotFoundException)

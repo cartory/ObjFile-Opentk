@@ -72,14 +72,14 @@ namespace gameOpenTK.models
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, shaders[shader].GetBuffer("vPosition"));
 
-            GL.BufferData<Vector3>(BufferTarget.ArrayBuffer, (System.IntPtr)(vertdata.Length * Vector3.SizeInBytes), vertdata, BufferUsageHint.StaticDraw);
+            GL.BufferData<Vector3>(BufferTarget.ArrayBuffer, (System.IntPtr)(vertdata.Length * Vector3.SizeInBytes), vertdata, BufferUsageHint.DynamicDraw);
             GL.VertexAttribPointer(shaders[shader].GetAttribute("vPosition"), 3, VertexAttribPointerType.Float, false, 0, 0);
 
             // Buffer vertex color if shader supports it
             if (shaders[shader].GetAttribute("vColor") != -1)
             {
                 GL.BindBuffer(BufferTarget.ArrayBuffer, shaders[shader].GetBuffer("vColor"));
-                GL.BufferData<Vector3>(BufferTarget.ArrayBuffer, (System.IntPtr)(coldata.Length * Vector3.SizeInBytes), coldata, BufferUsageHint.StaticDraw);
+                GL.BufferData<Vector3>(BufferTarget.ArrayBuffer, (System.IntPtr)(coldata.Length * Vector3.SizeInBytes), coldata, BufferUsageHint.DynamicDraw);
                 GL.VertexAttribPointer(shaders[shader].GetAttribute("vColor"), 3, VertexAttribPointerType.Float, true, 0, 0);
             }
 
@@ -87,7 +87,7 @@ namespace gameOpenTK.models
             if (shaders[shader].GetAttribute("texcoord") != -1)
             {
                 GL.BindBuffer(BufferTarget.ArrayBuffer, shaders[shader].GetBuffer("texcoord"));
-                GL.BufferData<Vector2>(BufferTarget.ArrayBuffer, (System.IntPtr)(texcoorddata.Length * Vector2.SizeInBytes), texcoorddata, BufferUsageHint.StaticDraw);
+                GL.BufferData<Vector2>(BufferTarget.ArrayBuffer, (System.IntPtr)(texcoorddata.Length * Vector2.SizeInBytes), texcoorddata, BufferUsageHint.DynamicDraw);
                 GL.VertexAttribPointer(shaders[shader].GetAttribute("texcoord"), 2, VertexAttribPointerType.Float, true, 0, 0);
             }
 

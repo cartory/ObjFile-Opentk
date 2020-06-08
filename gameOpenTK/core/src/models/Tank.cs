@@ -19,8 +19,8 @@ namespace gameOpenTK.models
         {
             gun = $"gun{name}";
             body = $"body{name}";
-            Add(Loader.Instance.LoadFromFile(gun, "canion.obj"));
-            Add(Loader.Instance.LoadFromFile(body, "base.obj"));
+            Add(Loader.Instance.LoadFromFile(body, "base.obj", ShaderManager.Instance.textures["box"]));
+            Add(Loader.Instance.LoadFromFile(gun, "canion.obj", ShaderManager.Instance.textures["tiger"]));
         }
         public void Move(bool forward)
         {
