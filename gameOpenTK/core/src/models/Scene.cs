@@ -12,44 +12,41 @@ using gameOpenTK.controllers;
 
 namespace gameOpenTK.models
 {
-    class Scene : Volume<Object>
-    {
-        private int ibo_elements;
-        private string shader = ShaderManager.Instance.activeShader;
+    class Scene : Volume<Part>
+    {   
+        Hashtable objs;
+        int ibo_elements;
+
         public Scene() 
         {
-            this.list = new Hashtable();
+            objs = new Hashtable();
             GL.GenBuffers(1, out ibo_elements);
         }
 
-        public override void DelT(string key) => list.Remove(key);
-        public override Object GetT(string key) => (Object)list[key];
-        public override void SetT(string key, Object element) => list[key] = element;
-        public override void AddT(string key, Object element) => list.Add(key, element);
         public override void Draw(int indiceat = 0)
         {
             ShaderManager.Instance.shaders[shader].EnableVertexAttribArrays();
-
             foreach (DictionaryEntry entry in list)
             {
-                Object v = (Object)entry.Value;
+                Part v = (Part)entry.Value;
                 v.Draw(indiceat);
                 indiceat += v.IndiceCount;
             }
             ShaderManager.Instance.shaders[shader].DisableVertexAttribArrays();
         }
 
-        //  MOVING THE ELEEMENTS
-        public void traslateTX(string key, bool dir) => ((Object)list[key]).traslateX(dir);
-        public void traslateTY(string key, bool dir) => ((Object)list[key]).traslateY(dir);
-        public void traslateTZ(string key, bool dir) => ((Object)list[key]).traslateZ(dir);
-        public void rotateTX(string key, bool dir) => ((Object)list[key]).rotateX(dir);
-        public void rotateTY(string key, bool dir) => ((Object)list[key]).rotateY(dir);
-        public void rotateTZ(string key, bool dir) => ((Object)list[key]).rotateZ(dir);
-        public void scaleT(string key, bool plus) => ((Object)list[key]).scaleObj(plus);
-        //
+        public void Add(Object obj) 
+        {
+            Part[] parts = obj.GetArray();
+            foreach (Part part in parts)
+            {
+                Add(part.name, part);
+            }
+            objs.Add(obj.name, obj);
+        }
 
-        public void Update(Camera cam, Size ClientSize, int vertCount = 0)
+        #region updaters
+        public override void Update(object camera, Size ClientSize, int vertCount = 0)
         {
             List<int> inds = new List<int>();
             List<Vector3> verts = new List<Vector3>();
@@ -58,7 +55,7 @@ namespace gameOpenTK.models
 
             foreach (DictionaryEntry entry in list)
             {
-                Object v = (Object)entry.Value;
+                Part v = (Part)entry.Value;
                 verts.AddRange(v.GetVerts().ToList());
                 inds.AddRange(v.GetIndices(vertCount).ToList());
                 colors.AddRange(v.GetColorData().ToList());
@@ -96,8 +93,8 @@ namespace gameOpenTK.models
 
             foreach (DictionaryEntry entry in list)
             {
-                Object v = (Object)entry.Value;
-                v.Update(cam, ClientSize);
+                Part v = (Part)entry.Value;
+                v.Update(camera, ClientSize);
             }
 
             GL.UseProgram(shaders[shader].ProgramID);
@@ -108,30 +105,6 @@ namespace gameOpenTK.models
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, ibo_elements);
             GL.BufferData(BufferTarget.ElementArrayBuffer, (System.IntPtr)(indicedata.Length * sizeof(int)), indicedata, BufferUsageHint.StaticDraw);
         }
-
-        public override Vector3[] GetVerts()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Vector3[] GetColorData()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void CalculateModelMatrix()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override int[] GetIndices(int offset = 0)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Vector2[] GetTextureCoords()
-        {
-            throw new NotImplementedException();
-        }
+        #endregion
     }
 }

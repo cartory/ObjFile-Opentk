@@ -24,7 +24,7 @@ namespace gameOpenTK
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             base.OnRenderFrame(e);
-            GameController.Instance.OnRenderFrame(e, Width, Height);
+            GameController.Instance.OnRenderFrame(Width, Height);
             SwapBuffers();
         }
 
@@ -35,13 +35,13 @@ namespace gameOpenTK
             {
                 Exit();
             }
-            GameController.Instance.OnUpdateFrame(e, ClientSize, Focused);
+            GameController.Instance.OnUpdateFrame(ClientSize, Focused);
         }
 
         protected override void OnFocusedChanged(EventArgs e)
         {
             base.OnFocusedChanged(e);
-            GameController.Instance.OnFocusedChanged();
+            GameController.Instance.OnFocusedChanged(Mouse.GetState());
         }
 
         protected override void OnKeyDown(KeyboardKeyEventArgs e)

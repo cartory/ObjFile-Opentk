@@ -10,7 +10,9 @@ namespace gameOpenTK
     {
         static void Main(string[] args)
         {
-            using (Game game = new Game(1024, 720, "tarea 6"))
+        int i = 0;
+            Console.WriteLine(i++);
+            using (Game game = new Game(1024, 720, "GAME OPENTK"))
             {
                 game.Run(30.0, 30.0);
             }

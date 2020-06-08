@@ -14,21 +14,11 @@ namespace gameOpenTK.controllers
     public class ShaderManager
     {
         #region Singleton
-        private static ShaderManager instance;
-
-
-        public static ShaderManager Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new ShaderManager();
-                }
-                return instance;
-            }
-        }
+        public static ShaderManager Instance { get => instance; }
+        private static ShaderManager instance = new ShaderManager();
         #endregion
+
+        //const string path = @"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\shaders\";
 
         public Dictionary<string, int> textures = new Dictionary<string, int>();
         public Dictionary<string, ShaderProgram> shaders = new Dictionary<string, ShaderProgram>();
@@ -52,6 +42,12 @@ namespace gameOpenTK.controllers
                 loadImage(@"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\images\azul_tex.jpg"));
             textures.Add("tiger_tex.jpg",
                 loadImage(@"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\images\tiger_tex.jpg"));
+            textures.Add("container",
+                loadImage(@"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\images\container.png"));
+            textures.Add("wall",
+                loadImage(@"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\images\wall.png"));
+            textures.Add("metal",
+                loadImage(@"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\images\metal.jpg"));
         }
 
         int loadImage(Bitmap image)

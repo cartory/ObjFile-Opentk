@@ -47,23 +47,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="core\files\objs\base.obj" />
+    <None Include="core\files\objs\floor.obj" />
+    <None Include="core\files\objs\tank.obj" />
     <Compile Include="core\Game.cs" />
+    <Compile Include="core\src\controllers\InputController.cs" />
+    <Compile Include="core\src\controllers\ModelLoader.cs" />
     <Compile Include="core\src\models\Camera.cs" />
     <Compile Include="core\src\controllers\ShaderManager.cs" />
     <Compile Include="core\src\common\ShaderProgram.cs" />
     <Compile Include="core\src\controllers\GameController.cs" />
+    <Compile Include="core\src\common\Interfaces.cs" />
     <Compile Include="core\src\models\Object.cs" />
-    <Compile Include="core\src\models\Volume.cs" />
+    <Compile Include="core\src\models\Part.cs" />
+    <Compile Include="core\src\common\Primitives.cs" />
     <Compile Include="core\src\models\Scene.cs" />
+    <Compile Include="core\src\models\Tank.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="core\files\objs\cow.obj" />
-    <None Include="core\files\objs\pumpkin.obj" />
-    <None Include="core\files\objs\teapot.obj" />
-    <None Include="core\files\objs\teddy.obj" />
+    <None Include="core\files\objs\canion.obj" />
+    <None Include="core\files\objs\labyrinth.obj" />
+    <None Include="core\files\objs\maze.obj" />
     <None Include="core\files\shaders\fs.glsl" />
     <None Include="core\files\shaders\fs_tex.glsl" />
     <None Include="core\files\shaders\vs.glsl" />
@@ -74,10 +81,13 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="core\files\images\azul_tex.jpg" />
+    <Content Include="core\files\images\container.png" />
+    <Content Include="core\files\images\metal.jpg" />
     <Content Include="core\files\images\opentksquare.png" />
     <Content Include="core\files\images\opentksquare2.png" />
     <Content Include="core\files\images\piel.jpg" />
     <Content Include="core\files\images\tiger_tex.jpg" />
+    <Content Include="core\files\images\wall.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

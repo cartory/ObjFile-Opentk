@@ -11,40 +11,37 @@ using System.Threading.Tasks;
 using System.Collections;
 using gameOpenTK.common;
 using gameOpenTK.models;
+using gameOpenTK.core.src.controllers;
 
 namespace gameOpenTK.controllers
 {
     class GameController
     {
         #region Singleton
-        private static GameController instance;
-        public static GameController Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new GameController();
-                }
-                return instance;
-            }
-        }
+        private GameController() { }
+        public static GameController Instance { get => instance; }
+        private static GameController instance = new GameController();
         #endregion
 
-        Camera cam = new Camera();
-        Scene scene = new Scene();
-
-        Vector2 lastMousePos = new Vector2();
+        Tank tank;
+        Scene scene;
+        Camera camera;
+        Vector2 lastMousePos;
 
         void initProgram()
         {
-            cam.MouseSensitivity = 0.0025f;
-            cam.Position += new Vector3(0f, 0f, 5f);
+            scene = new Scene();
+            camera = new Camera();
+            tank = new Tank("player1");
+            lastMousePos = new Vector2();
+
+            camera.MouseSensitivity = 0.0025f;
+            camera.Position += new Vector3(0f, 0f, 5f);
             lastMousePos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
-            Object teddy = Object.LoadFromFile(@"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\objs\teddy.obj");
-            teddy.TextureID = ShaderManager.Instance.textures["tiger_tex.jpg"];
-            teddy.Scale = .1f;
-            scene.AddT("teddy", teddy);
+            //lab.TextureID = ShaderManager.Instance.textures["container"];
+
+            tank.TurnAround();
+            scene.Add(tank);
         }
 
         public void OnLoad()
@@ -53,7 +50,7 @@ namespace gameOpenTK.controllers
             GL.ClearColor(Color.Gray);
             GL.PointSize(3f);
         }
-        public void OnRenderFrame(FrameEventArgs e, int Width, int Height)
+        public void OnRenderFrame(int Width, int Height)
         {
             GL.Viewport(0, 0, Width, Height);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
@@ -62,99 +59,16 @@ namespace gameOpenTK.controllers
             GL.Flush();
         }
 
-        public void OnUpdateFrame(FrameEventArgs e, Size ClientSize, bool Focused)
+        public void OnUpdateFrame(Size ClientSize, bool Focused)
         {
-            ProcessInput(Focused);
-            scene.Update(cam, ClientSize);
+            InputController.Instance.ProcessKeyBoard(Keyboard.GetState(), camera, tank);
+            if (Focused) 
+            {
+                InputController.Instance.UpdateMouseSlide(Mouse.GetState(), camera, ref lastMousePos);
+            }
+            scene.Update(camera, ClientSize);
         }
 
-        private void ProcessInput(bool Focused)
-        {
-            if (Keyboard.GetState().IsKeyDown(Key.W))
-            {
-                cam.Move(0f, 0.1f, 0f);
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Key.S))
-            {
-                cam.Move(0f, -0.1f, 0f);
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Key.A))
-            {
-                cam.Move(-0.1f, 0f, 0f);
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Key.D))
-            {
-                cam.Move(0.1f, 0f, 0f);
-            }
-            // MOVING THE TEDDY BEAR
-            if (Keyboard.GetState().IsKeyDown(Key.Z))
-            {
-                scene.rotateTX("teddy", true);
-            }
-            if (Keyboard.GetState().IsKeyDown(Key.X))
-            {
-                scene.rotateTY("teddy", true);
-            }
-            if (Keyboard.GetState().IsKeyDown(Key.C))
-            {
-                scene.rotateTZ("teddy", true);
-            }
-            if (Keyboard.GetState().IsKeyDown(Key.M))
-            {
-                scene.scaleT("teddy", true);
-            }
-            if (Keyboard.GetState().IsKeyDown(Key.N))
-            {
-                scene.scaleT("teddy", false);
-            }
-            if (Keyboard.GetState().IsKeyDown(Key.Right))
-            {
-                scene.traslateTX("teddy", true);
-            }
-            if (Keyboard.GetState().IsKeyDown(Key.Left))
-            {
-                scene.traslateTX("teddy", false);
-            }
-            if (Keyboard.GetState().IsKeyDown(Key.Up))
-            {
-                scene.traslateTY("teddy", true);
-            }
-            if (Keyboard.GetState().IsKeyDown(Key.Down))
-            {
-                scene.traslateTY("teddy", false);
-            }
-            if (Keyboard.GetState().IsKeyDown(Key.Number1))
-            {
-                scene.traslateTZ("teddy", true);
-            }
-            if (Keyboard.GetState().IsKeyDown(Key.Number3))
-            {
-                scene.traslateTZ("teddy", false);
-            }
-            //  //  //
-
-            if (Keyboard.GetState().IsKeyDown(Key.Q))
-            {
-                cam.Move(0f, 0f, 0.1f);
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Key.E))
-            {
-                cam.Move(0f, 0f, -0.1f);
-            }
-            if (Focused)
-            {
-                Vector2 delta = lastMousePos - new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
-                lastMousePos += delta;
-
-                cam.AddRotation(delta.X, delta.Y);
-                lastMousePos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
-            }
-        }
-
-        public void OnFocusedChanged() => lastMousePos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+        public void OnFocusedChanged(MouseState mouseState) => lastMousePos = new Vector2(mouseState.X, mouseState.Y);
     }
 }

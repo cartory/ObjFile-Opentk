@@ -13,19 +13,17 @@ namespace gameOpenTK.common
         public int ProgramID = -1;
         public int VShaderID = -1;
         public int FShaderID = -1;
-        public int AttributeCount = 0;
+        
         public int UniformCount = 0;
+        public int AttributeCount = 0;
 
-        public Dictionary<String, AttributeInfo> Attributes = new Dictionary<string, AttributeInfo>();
-        public Dictionary<String, UniformInfo> Uniforms = new Dictionary<string, UniformInfo>();
-        public Dictionary<String, uint> Buffers = new Dictionary<string, uint>();
+        public Dictionary<string, uint> Buffers = new Dictionary<string, uint>();
+        public Dictionary<string, UniformInfo> Uniforms = new Dictionary<string, UniformInfo>();
+        public Dictionary<string, AttributeInfo> Attributes = new Dictionary<string, AttributeInfo>();
 
-        public ShaderProgram()
-        {
-            ProgramID = GL.CreateProgram();
-        }
-
-        private void loadShader(String code, ShaderType type, out int address)
+        public ShaderProgram() => ProgramID = GL.CreateProgram();
+        
+        private void loadShader(string code, ShaderType type, out int address)
         {
             address = GL.CreateShader(type);
             GL.ShaderSource(address, code);
@@ -34,12 +32,10 @@ namespace gameOpenTK.common
             Console.WriteLine(GL.GetShaderInfoLog(address));
         }
 
-        public void DeleteShader()
-        {
-            GL.DeleteProgram(ProgramID);
-        }
+        public void DeleteShader() => GL.DeleteProgram(ProgramID);
+        
 
-        public void LoadShaderFromString(String code, ShaderType type)
+        public void LoadShaderFromString(string code, ShaderType type)
         {
             if (type == ShaderType.VertexShader)
             {
@@ -51,7 +47,7 @@ namespace gameOpenTK.common
             }
         }
 
-        public void LoadShaderFromFile(String filename, ShaderType type)
+        public void LoadShaderFromFile(string filename, ShaderType type)
         {
             using (StreamReader sr = new StreamReader(filename))
             {
@@ -177,7 +173,7 @@ namespace gameOpenTK.common
 
 
 
-        public ShaderProgram(String vshader, String fshader, bool fromFile = false)
+        public ShaderProgram(string vshader, string fshader, bool fromFile = false)
         {
             ProgramID = GL.CreateProgram();
 
@@ -198,17 +194,17 @@ namespace gameOpenTK.common
 
         public class UniformInfo
         {
-            public String name = "";
-            public int address = -1;
             public int size = 0;
+            public string name = "";
+            public int address = -1;
             public ActiveUniformType type;
         }
 
         public class AttributeInfo
         {
-            public String name = "";
-            public int address = -1;
             public int size = 0;
+            public string name = "";
+            public int address = -1;
             public ActiveAttribType type;
         }
     }
