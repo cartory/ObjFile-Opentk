@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using System.Collections;
 using gameOpenTK.common;
 using gameOpenTK.models;
-using gameOpenTK.core.src.controllers;
 
 namespace gameOpenTK.controllers
 {

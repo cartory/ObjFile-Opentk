@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace gameOpenTK.models
 {
-    class Object: HashList<Part>, ITransformations, IParamTransformations, IChildTransformations
+    class Object : HashList<Part>, ITransformations, IParamTransformations, IChildTransformations
     {
         public string name;
 
         protected float step, scale, theta;
-        public Object(string name) 
+        public Object(string name)
         {
             this.name = name;
             Part tmp = new Part(null);
@@ -25,7 +25,7 @@ namespace gameOpenTK.models
             GC.Collect();
         }
         public void Add(Part part) => Add(part.name, part);
-        public Part[] GetArray() 
+        public Part[] GetArray()
         {
             Part[] array = new Part[list.Count];
             list.Values.CopyTo(array, 0);

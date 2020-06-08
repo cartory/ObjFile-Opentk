@@ -48,6 +48,14 @@ namespace gameOpenTK.controllers
             {
                 tank.RotateGun(left: false);
             }
+            if (state.IsKeyDown(Key.M))
+            {
+                tank.Scale(true);
+            }
+            if (state.IsKeyDown(Key.N))
+            {
+                tank.Scale(false);
+            }
             if (state.IsKeyDown(Key.Right))
             {
                 if (state.IsKeyDown(Key.ControlLeft))

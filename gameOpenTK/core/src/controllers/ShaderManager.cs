@@ -18,7 +18,7 @@ namespace gameOpenTK.controllers
         private static ShaderManager instance = new ShaderManager();
         #endregion
 
-        //const string path = @"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\shaders\";
+        string path = @"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\";
 
         public Dictionary<string, int> textures = new Dictionary<string, int>();
         public Dictionary<string, ShaderProgram> shaders = new Dictionary<string, ShaderProgram>();
@@ -27,28 +27,25 @@ namespace gameOpenTK.controllers
 
         private ShaderManager()
         {
-            //shaders.Add("default", new ShaderProgram("vs.glsl", "fs.glsl", true));
-            shaders.Add("textured", new ShaderProgram(
-                @"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\shaders\vs_tex.glsl",
-                @"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\shaders\fs_tex.glsl", true));
+            shaders.Add(
+                key: "textured",
+                value: new ShaderProgram(
+                    GetPath(@"shaders\vs_tex.glsl"),
+                    GetPath(@"shaders\fs_tex.glsl"),
+                    fromFile: true
+            ));
 
-            textures.Add("opentksquare.png",
-                loadImage(@"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\images\opentksquare.png"));
-            textures.Add("opentksquare2.png",
-                loadImage(@"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\images\opentksquare2.png"));
-            textures.Add("piel.jpg",
-                loadImage(@"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\images\piel.jpg"));
-            textures.Add("azul_tex.jpg",
-                loadImage(@"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\images\azul_tex.jpg"));
-            textures.Add("tiger_tex.jpg",
-                loadImage(@"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\images\tiger_tex.jpg"));
-            textures.Add("container",
-                loadImage(@"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\images\container.png"));
-            textures.Add("wall",
-                loadImage(@"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\images\wall.png"));
-            textures.Add("metal",
-                loadImage(@"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\images\metal.jpg"));
+            textures.Add("wall", loadImage(GetPath(@"images\wall.png")));
+            textures.Add("metal", loadImage(GetPath(@"images\metal.jpg")));
+            textures.Add("piel.jpg", loadImage(GetPath(@"images\piel.jpg")));
+            textures.Add("container", loadImage(GetPath(@"images\container.png")));
+            textures.Add("azul_tex.jpg", loadImage(GetPath(@"images\azul_tex.jpg")));
+            textures.Add("tiger_tex.jpg", loadImage(GetPath(@"images\tiger_tex.jpg")));
+            textures.Add("opentksquare.png", loadImage(GetPath(@"images\opentksquare.png")));
+            textures.Add("opentksquare2.png", loadImage(GetPath(@"images\opentksquare2.png")));
         }
+
+        string GetPath(string file) => $"{path}{file}";
 
         int loadImage(Bitmap image)
         {
