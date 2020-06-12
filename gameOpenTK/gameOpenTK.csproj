@@ -58,6 +58,7 @@
     <Compile Include="core\src\common\ShaderProgram.cs" />
     <Compile Include="core\src\controllers\GameController.cs" />
     <Compile Include="core\src\common\Interfaces.cs" />
+    <Compile Include="core\src\models\Maze.cs" />
     <Compile Include="core\src\models\Object.cs" />
     <Compile Include="core\src\models\Part.cs" />
     <Compile Include="core\src\common\Primitives.cs" />
@@ -81,6 +82,7 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="core\files\images\azul_tex.jpg" />
+    <Content Include="core\files\images\box.png" />
     <Content Include="core\files\images\container.png" />
     <Content Include="core\files\images\metal.jpg" />
     <Content Include="core\files\images\opentksquare.png" />

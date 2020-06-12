@@ -23,6 +23,7 @@ namespace gameOpenTK.controllers
         #endregion
 
         Tank tank;
+        Maze maze;
         Scene scene;
         Camera camera;
         Vector2 lastMousePos;
@@ -31,16 +32,21 @@ namespace gameOpenTK.controllers
         {
             scene = new Scene();
             camera = new Camera();
+            maze = new Maze("maze");
             tank = new Tank("player1");
             lastMousePos = new Vector2();
 
             camera.MouseSensitivity = 0.0025f;
             camera.Position += new Vector3(0f, 0f, 5f);
             lastMousePos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
-            //lab.TextureID = ShaderManager.Instance.textures["container"];
 
             tank.TurnAround();
+            
+            tank.setScale(.12f);
+            maze.setScale(1.25f);
+
             scene.Add(tank);
+            scene.Add(maze);
         }
 
         public void OnLoad()

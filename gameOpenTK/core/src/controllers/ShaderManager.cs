@@ -36,13 +36,14 @@ namespace gameOpenTK.controllers
             ));
 
             textures.Add("wall", loadImage(GetPath(@"images\wall.png")));
+            textures.Add("azul", loadImage(GetPath(@"images\azul_tex.jpg")));
+            textures.Add("piel", loadImage(GetPath(@"images\piel.jpg")));
+            textures.Add("tiger", loadImage(GetPath(@"images\tiger_tex.jpg")));
             textures.Add("metal", loadImage(GetPath(@"images\metal.jpg")));
-            textures.Add("piel.jpg", loadImage(GetPath(@"images\piel.jpg")));
+            textures.Add("box", loadImage(GetPath(@"images\box.png")));
             textures.Add("container", loadImage(GetPath(@"images\container.png")));
-            textures.Add("azul_tex.jpg", loadImage(GetPath(@"images\azul_tex.jpg")));
-            textures.Add("tiger_tex.jpg", loadImage(GetPath(@"images\tiger_tex.jpg")));
-            textures.Add("opentksquare.png", loadImage(GetPath(@"images\opentksquare.png")));
-            textures.Add("opentksquare2.png", loadImage(GetPath(@"images\opentksquare2.png")));
+            textures.Add("opentksquare", loadImage(GetPath(@"images\opentksquare.png")));
+            textures.Add("opentksquare2", loadImage(GetPath(@"images\opentksquare2.png")));
         }
 
         string GetPath(string file) => $"{path}{file}";

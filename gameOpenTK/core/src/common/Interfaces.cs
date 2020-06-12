@@ -18,6 +18,12 @@ namespace gameOpenTK.common
         int[] GetIndices(int offset = 0);
     }
 
+    interface ISetters
+    {
+        void setStep(float step);
+        void setScale(float scale);
+        void setTheta(float theta);
+    }
     interface ITransformations
     {
         void Scale(bool plus);

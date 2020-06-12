@@ -10,11 +10,10 @@ using System.Threading.Tasks;
 
 namespace gameOpenTK.models
 {
-    class Object : HashList<Part>, ITransformations, IParamTransformations, IChildTransformations
+    class Object : HashList<Part>, ITransformations, IParamTransformations, IChildTransformations, ISetters
     {
         public string name;
-
-        protected float step, scale, theta;
+        public float step, scale, theta;
         public Object(string name)
         {
             this.name = name;
@@ -24,13 +23,52 @@ namespace gameOpenTK.models
             theta = tmp.theta;
             GC.Collect();
         }
-        public void Add(Part part) => Add(part.name, part);
+
+        #region setters
+        public virtual void setScale(float scale)
+        {
+            this.scale = scale;
+            foreach (DictionaryEntry e in list)
+            {
+                ((Part)list[e.Key]).scale = scale;
+            }
+        }
+
+        public virtual void setStep(float step)
+        {
+            this.step = step;
+            foreach (DictionaryEntry e in list)
+            {
+                ((Part)list[e.Key]).step = step;
+            }
+        }
+
+        public virtual void setTheta(float theta)
+        {
+            this.theta = theta;
+            foreach (DictionaryEntry e in list)
+            {
+                ((Part)list[e.Key]).theta = theta;
+            }
+        }
+        #endregion
+
+        public void Add(Part part) 
+        {
+            part.step = step;
+            part.scale = scale;
+            part.theta = theta;
+            Add(part.name, part);
+        }
         public Part[] GetArray()
         {
             Part[] array = new Part[list.Count];
             list.Values.CopyTo(array, 0);
             return array;
         }
+
+        public void setTexture(string key, int textureID) => ((Part)list[key]).TextureID = textureID;
+        
 
         #region IChildTransformations
         public void ScaleChild(string key, bool plus) => ((Part)list[key]).Scale(plus);
