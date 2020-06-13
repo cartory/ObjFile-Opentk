@@ -13,6 +13,7 @@ namespace gameOpenTK.models
 {
     class Tank: Object
     {
+        static float sqr = .3f;
         private float angle = 0;
         private string gun, body;
         public Tank(string name) : base(name)
@@ -24,33 +25,36 @@ namespace gameOpenTK.models
         }
         public void Move(bool forward)
         {
-            float distanceZ = step * (float)Math.Cos(MathHelper.DegreesToRadians(angle));
-            float distanceX = step * (float)Math.Sin(MathHelper.DegreesToRadians(angle));
-            
-            //  forward (-) Z, backward (+) Z
+            float dz = step * (float)Math.Cos(MathHelper.DegreesToRadians(angle));
+            float dx = step * (float)Math.Sin(MathHelper.DegreesToRadians(angle));
+
+            //  forward (-) Z, backward (+)
             if (forward)
             {
-                TraslateZ(-distanceZ);
-                TraslateX(distanceX);
+                if (!Maze.contains(sqr, -dx, dz, position)) return;
+                TraslateZ(dz);
+                TraslateX(-dx);
+                this.position += new Vector3(-dx, 0, dz);
             }
             else 
             {
-                TraslateZ(distanceZ);
-                TraslateX(-distanceX);
+                if (!Maze.contains(sqr, dx, -dz, position)) return;
+                TraslateZ(-dz);
+                TraslateX(dx);
+                this.position += new Vector3(dx, 0, -dz);
             }
+            Console.WriteLine(position);
         }
 
         internal void Shoot() => Console.WriteLine("SHOOT!!");
-
-        public void RotateGun(bool left) => RotateYChild(gun, left);
+        public void RotateGun(bool left) => parts.Get(gun).RotateY(left);
         public void RotateBody(bool left) 
-        { 
-            RotateYChild(body, left);
+        {
+            parts.Get(body).RotateY(left);
             UpdateAngle(left);
             Console.WriteLine(angle);
         }
 
-        public void TurnAround() => RotateY(180);
         public void Rotate(bool left) 
         {
             RotateY(left);

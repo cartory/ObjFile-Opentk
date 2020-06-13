@@ -16,11 +16,10 @@ namespace gameOpenTK.models
     class Part : Volume<Vector3>, IGetters, ITransformations, IParamTransformations
     {
         public string name;
-
         public Vector3[] colors;
         public Vector3[] vertices;
         public Vector2[] texturecoords;
-
+        
         public Part(string name) => this.name = name;
 
         public override int VertCount { get => vertices.Length; }
@@ -35,6 +34,7 @@ namespace gameOpenTK.models
             GL.UniformMatrix4(
                 ShaderManager.Instance.shaders[shader].GetUniform("modelview"),
                 false, ref ModelViewProjectionMatrix);
+
             if (ShaderManager.Instance.shaders[shader].GetUniform("maintexture") != -1)
             {
                 GL.Uniform1(ShaderManager.Instance.shaders[shader].GetUniform("maintexture"), 0);
@@ -56,12 +56,13 @@ namespace gameOpenTK.models
         public int[] GetIndices(int offset = 0)
         {
             List<int> temp = new List<int>();
-            foreach (DictionaryEntry entry in list)
+
+            foreach (DictionaryEntry e in list)
             {
-                Vector3 e = (Vector3)entry.Value;
-                temp.Add((int)e.X + offset);
-                temp.Add((int)e.Y + offset);
-                temp.Add((int)e.Z + offset);
+                Vector3 v = list.Get(e.Key);
+                temp.Add((int)v.X + offset);
+                temp.Add((int)v.Y + offset);
+                temp.Add((int)v.Z + offset);
             }
             return temp.ToArray();
         }
@@ -72,11 +73,11 @@ namespace gameOpenTK.models
 
         #region ITransformations
         public void Scale(bool plus) => scale *= plus ? 1.1f : .9f;
-        //  ROTATE
+
         public void RotateX(bool dir) => RotateX(dir ? theta : -theta);
         public void RotateY(bool dir) => RotateY(dir ? theta : -theta);
         public void RotateZ(bool dir) => RotateZ(dir ? theta : -theta);
-        //  TRASLATE
+
         public void TraslateX(bool dir) => TraslateX(dir ? step : -step);
         public void TraslateY(bool dir) => TraslateY(dir ? step : -step);
         public void TraslateZ(bool dir) => TraslateZ(dir ? step : -step);
@@ -91,6 +92,5 @@ namespace gameOpenTK.models
         public void TraslateY(float distance) => matrixContainer *= Matrix4.CreateTranslation(new Vector3(0, distance, 0));
         public void TraslateZ(float distance) => matrixContainer *= Matrix4.CreateTranslation(new Vector3(0, 0, distance));
         #endregion
-
     }
 }

@@ -18,7 +18,7 @@ namespace gameOpenTK.controllers
         private static ShaderManager instance = new ShaderManager();
         #endregion
 
-        string path = @"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\";
+        string path = @"C:\Users\javie\source\repos\ObjFile-Opentk\gameOpenTK\core\files\";
 
         public Dictionary<string, int> textures = new Dictionary<string, int>();
         public Dictionary<string, ShaderProgram> shaders = new Dictionary<string, ShaderProgram>();
@@ -35,12 +35,12 @@ namespace gameOpenTK.controllers
                     fromFile: true
             ));
 
+            textures.Add("box", loadImage(GetPath(@"images\box.png")));
             textures.Add("wall", loadImage(GetPath(@"images\wall.png")));
             textures.Add("azul", loadImage(GetPath(@"images\azul_tex.jpg")));
             textures.Add("piel", loadImage(GetPath(@"images\piel.jpg")));
             textures.Add("tiger", loadImage(GetPath(@"images\tiger_tex.jpg")));
             textures.Add("metal", loadImage(GetPath(@"images\metal.jpg")));
-            textures.Add("box", loadImage(GetPath(@"images\box.png")));
             textures.Add("container", loadImage(GetPath(@"images\container.png")));
             textures.Add("opentksquare", loadImage(GetPath(@"images\opentksquare.png")));
             textures.Add("opentksquare2", loadImage(GetPath(@"images\opentksquare2.png")));

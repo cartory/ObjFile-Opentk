@@ -36,14 +36,12 @@ namespace gameOpenTK.controllers
             tank = new Tank("player1");
             lastMousePos = new Vector2();
 
-            camera.MouseSensitivity = 0.0025f;
+            camera.MouseSensitivity = 0.005f;
             camera.Position += new Vector3(0f, 0f, 5f);
             lastMousePos = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
 
-            tank.TurnAround();
-            
-            tank.setScale(.12f);
-            maze.setScale(1.25f);
+            tank.setScale(.0000001f);
+            maze.setScale(.000001f);
 
             scene.Add(tank);
             scene.Add(maze);

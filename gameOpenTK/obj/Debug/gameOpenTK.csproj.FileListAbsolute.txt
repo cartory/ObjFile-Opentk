@@ -9,3 +9,14 @@ C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\obj\Debug\gameOpenTK.csproj.
 C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\obj\Debug\gameOpenTK.csproj.CopyComplete
 C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\obj\Debug\gameOpenTK.exe
 C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\obj\Debug\gameOpenTK.pdb
+C:\Users\javie\source\repos\ObjFile-Opentk\gameOpenTK\bin\Debug\gameOpenTK.exe.config
+C:\Users\javie\source\repos\ObjFile-Opentk\gameOpenTK\bin\Debug\gameOpenTK.exe
+C:\Users\javie\source\repos\ObjFile-Opentk\gameOpenTK\bin\Debug\gameOpenTK.pdb
+C:\Users\javie\source\repos\ObjFile-Opentk\gameOpenTK\bin\Debug\OpenTK.dll
+C:\Users\javie\source\repos\ObjFile-Opentk\gameOpenTK\bin\Debug\OpenTK.pdb
+C:\Users\javie\source\repos\ObjFile-Opentk\gameOpenTK\bin\Debug\OpenTK.xml
+C:\Users\javie\source\repos\ObjFile-Opentk\gameOpenTK\obj\Debug\gameOpenTK.csprojAssemblyReference.cache
+C:\Users\javie\source\repos\ObjFile-Opentk\gameOpenTK\obj\Debug\gameOpenTK.csproj.CoreCompileInputs.cache
+C:\Users\javie\source\repos\ObjFile-Opentk\gameOpenTK\obj\Debug\gameOpenTK.csproj.CopyComplete
+C:\Users\javie\source\repos\ObjFile-Opentk\gameOpenTK\obj\Debug\gameOpenTK.exe
+C:\Users\javie\source\repos\ObjFile-Opentk\gameOpenTK\obj\Debug\gameOpenTK.pdb

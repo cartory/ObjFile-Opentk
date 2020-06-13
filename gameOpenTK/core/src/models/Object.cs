@@ -1,4 +1,6 @@
 ﻿using gameOpenTK.common;
+using OpenTK;
+using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,132 +12,122 @@ using System.Threading.Tasks;
 
 namespace gameOpenTK.models
 {
-    class Object : HashList<Part>, ITransformations, IParamTransformations, IChildTransformations, ISetters
+    class Object: ISetters, ITransformations, IParamTransformations
     {
         public string name;
-        public float step, scale, theta;
+        protected HashList<Part> parts;
+        protected float step, scale, theta;
+        protected Vector3 position = Vector3.Zero;
+
         public Object(string name)
         {
             this.name = name;
+            parts = new HashList<Part>();
             Part tmp = new Part(null);
             step = tmp.step;
-            scale = tmp.scale;
             theta = tmp.theta;
+            scale = tmp.scale;
             GC.Collect();
+        }
+
+        public void Add(Part part)
+        {
+            part.step = step;
+            part.scale = scale;
+            part.theta = theta;
+            parts.Add(part.name, part);
+        }
+
+        public Part[] GetArray()
+        {
+            Part[] array = new Part[parts.Count];
+            parts.list.Values.CopyTo(array, 0);
+            return array;
         }
 
         #region setters
         public virtual void setScale(float scale)
         {
             this.scale = scale;
-            foreach (DictionaryEntry e in list)
+            foreach (DictionaryEntry e in parts)
             {
-                ((Part)list[e.Key]).scale = scale;
+                parts.Get(e.Key).scale = scale;
             }
         }
 
         public virtual void setStep(float step)
         {
             this.step = step;
-            foreach (DictionaryEntry e in list)
+            foreach (DictionaryEntry e in parts)
             {
-                ((Part)list[e.Key]).step = step;
+                parts.Get(e.Key).step = step;
             }
         }
 
         public virtual void setTheta(float theta)
         {
             this.theta = theta;
-            foreach (DictionaryEntry e in list)
+            foreach (DictionaryEntry e in parts)
             {
-                ((Part)list[e.Key]).theta = theta;
+                parts.Get(e.Key).theta = theta;
             }
         }
-        #endregion
-
-        public void Add(Part part) 
-        {
-            part.step = step;
-            part.scale = scale;
-            part.theta = theta;
-            Add(part.name, part);
-        }
-        public Part[] GetArray()
-        {
-            Part[] array = new Part[list.Count];
-            list.Values.CopyTo(array, 0);
-            return array;
-        }
-
-        public void setTexture(string key, int textureID) => ((Part)list[key]).TextureID = textureID;
-        
-
-        #region IChildTransformations
-        public void ScaleChild(string key, bool plus) => ((Part)list[key]).Scale(plus);
-
-        public void RotateXChild(string key, bool dir) => ((Part)list[key]).RotateX(dir);
-        public void RotateYChild(string key, bool dir) => ((Part)list[key]).RotateY(dir);
-        public void RotateZChild(string key, bool dir) => ((Part)list[key]).RotateZ(dir);
-
-        public void TraslateXChild(string key, bool dir) => ((Part)list[key]).TraslateX(dir);
-        public void TraslateYChild(string key, bool dir) => ((Part)list[key]).TraslateY(dir);
-        public void TraslateZChild(string key, bool dir) => ((Part)list[key]).TraslateZ(dir);
         #endregion
 
         #region Itransformations
         public virtual void Scale(bool plus)
         {
-            foreach (DictionaryEntry part in list)
+            foreach (DictionaryEntry e in parts)
             {
-                ((Part)list[part.Key]).Scale(plus);
+                parts.Get(e.Key).Scale(plus);
             }
         }
 
         public virtual void RotateX(bool dir)
         {
-            foreach (DictionaryEntry part in list)
+            foreach (DictionaryEntry e in parts)
             {
-                ((Part)list[part.Key]).RotateX(dir);
+                parts.Get(e.Key).RotateX(dir);
             }
         }
 
         public virtual void RotateY(bool dir)
         {
-            foreach (DictionaryEntry part in list)
+            foreach (DictionaryEntry e in parts)
             {
-                ((Part)list[part.Key]).RotateY(dir);
+                parts.Get(e.Key).RotateY(dir);
             }
         }
 
         public virtual void RotateZ(bool dir)
         {
-            foreach (DictionaryEntry part in list)
+            foreach (DictionaryEntry e in parts)
             {
-                ((Part)list[part.Key]).RotateZ(dir);
+                parts.Get(e.Key).RotateZ(dir);
             }
         }
 
         public virtual void TraslateX(bool dir)
         {
-            foreach (DictionaryEntry part in list)
+            foreach (DictionaryEntry e in parts)
             {
-                ((Part)list[part.Key]).TraslateX(dir);
+                parts.Get(e.Key).TraslateX(dir);
             }
         }
 
         public virtual void TraslateY(bool dir)
         {
-            foreach (DictionaryEntry part in list)
+            foreach (DictionaryEntry e in parts)
             {
-                ((Part)list[part.Key]).TraslateY(dir);
+                parts.Get(e.Key).TraslateY(dir);
             }
         }
 
         public virtual void TraslateZ(bool dir)
         {
-            foreach (DictionaryEntry part in list)
+            foreach (DictionaryEntry e in parts)
             {
-                ((Part)list[part.Key]).TraslateZ(dir);
+                parts.Get(e.Key).TraslateZ(dir);
             }
         }
         #endregion
@@ -143,49 +135,49 @@ namespace gameOpenTK.models
         #region IParamTransformations
         public virtual void RotateX(float angle)
         {
-            foreach (DictionaryEntry entry in list)
+            foreach (DictionaryEntry e in parts)
             {
-                ((Part)list[entry.Key]).RotateX(angle);
+                parts.Get(e.Key).RotateX(angle);
             }
         }
 
         public virtual void RotateY(float angle)
         {
-            foreach (DictionaryEntry entry in list)
+            foreach (DictionaryEntry e in parts)
             {
-                ((Part)list[entry.Key]).RotateY(angle);
+                parts.Get(e.Key).RotateY(angle);
             }
         }
 
         public virtual void RotateZ(float angle)
         {
-            foreach (DictionaryEntry entry in list)
+            foreach (DictionaryEntry e in parts)
             {
-                ((Part)list[entry.Key]).RotateZ(angle);
+                parts.Get(e.Key).RotateZ(angle);
             }
         }
 
         public virtual void TraslateX(float distance)
         {
-            foreach (DictionaryEntry entry in list)
+            foreach (DictionaryEntry e in parts)
             {
-                ((Part)list[entry.Key]).TraslateX(distance);
+                parts.Get(e.Key).TraslateX(distance);
             }
         }
 
         public virtual void TraslateY(float distance)
         {
-            foreach (DictionaryEntry entry in list)
+            foreach (DictionaryEntry e in parts)
             {
-                ((Part)list[entry.Key]).TraslateY(distance);
+                parts.Get(e.Key).TraslateY(distance);
             }
         }
 
         public virtual void TraslateZ(float distance)
         {
-            foreach (DictionaryEntry entry in list)
+            foreach (DictionaryEntry e in parts)
             {
-                ((Part)list[entry.Key]).TraslateZ(distance);
+                parts.Get(e.Key).TraslateZ(distance);
             }
         }
         #endregion

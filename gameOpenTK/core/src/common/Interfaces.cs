@@ -24,6 +24,7 @@ namespace gameOpenTK.common
         void setScale(float scale);
         void setTheta(float theta);
     }
+
     interface ITransformations
     {
         void Scale(bool plus);
@@ -35,19 +36,6 @@ namespace gameOpenTK.common
         void TraslateX(bool dir);
         void TraslateY(bool dir);
         void TraslateZ(bool dir);
-    }
-
-    interface IChildTransformations
-    {
-        void ScaleChild(string key, bool plus);
-
-        void RotateXChild(string key, bool dir);
-        void RotateYChild(string key, bool dir);
-        void RotateZChild(string key, bool dir);
-
-        void TraslateXChild(string key, bool dir);
-        void TraslateYChild(string key, bool dir);
-        void TraslateZChild(string key, bool dir);
     }
 
     interface IParamTransformations

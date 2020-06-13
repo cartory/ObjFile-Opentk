@@ -11,17 +11,24 @@ using System.Threading.Tasks;
 
 namespace gameOpenTK.common
 {
-    public abstract class HashList<T>
+    public class HashList<T>
     {
-        public Hashtable list = new Hashtable();
-        protected T Get(string key) => (T)list[key];
-        protected void Del(string key) => list.Remove(key);
-        protected void Set(string key, T element) => list[key] = element;
-        protected void Add(string key, T element) => list.Add(key, element);
+        public Hashtable list { get; }
+        public int Count { get => list.Count; }
+
+        public HashList() => list = new Hashtable();
+
+        public T Get(object key) => (T)list[key];
+        public void Del(string key) => list.Remove(key);
+        public void Set(string key, T element) => list[key] = element;
+        public void Add(string key, T element) => list.Add(key, element);
+
+        public IDictionaryEnumerator GetEnumerator() => list.GetEnumerator();
     }
-    public abstract class Volume<T> : HashList<T>
+    public abstract class Volume<T>
     {
         protected string shader = ShaderManager.Instance.activeShader;
+        public HashList<T> list = new HashList<T>();
 
         public Vector3 Position = Vector3.Zero;
         public Vector3 Rotation = Vector3.Zero;

@@ -1,4 +1,5 @@
-﻿using gameOpenTK.models;
+﻿using gameOpenTK.common;
+using gameOpenTK.models;
 using OpenTK;
 using System;
 using System.Collections;
@@ -18,8 +19,7 @@ namespace gameOpenTK.controllers
         public static Loader Instance { get => instance; }
         #endregion
 
-        //int textureID = ShaderManager.Instance.textures["container"];
-        string path = @"C:\Users\cartory\source\repos\gameOpenTK\gameOpenTK\core\files\objs\";
+        string path = @"C:\Users\javie\source\repos\ObjFile-Opentk\gameOpenTK\core\files\objs\";
 
         public Part LoadFromFile(string name, string filename, int textureID = 0)
         {
@@ -53,7 +53,7 @@ namespace gameOpenTK.controllers
             List<Vector3> verts = new List<Vector3>();
             List<Vector3> colors = new List<Vector3>();
 
-            Hashtable list = new Hashtable();
+            HashList<Vector3> list = new HashList<Vector3>();
             foreach (string line in lines)
             {
                 if (line.StartsWith("v ")) // Vertex definition
@@ -111,7 +111,7 @@ namespace gameOpenTK.controllers
             }
 
             // Create the Object
-            Part vol = new Part(name)
+            return new Part(name)
             {
                 list = list,
                 colors = colors.ToArray(),
@@ -119,7 +119,6 @@ namespace gameOpenTK.controllers
                 texturecoords = texs.ToArray(),
                 TextureID = ShaderManager.Instance.textures["container"]
             };
-            return vol;
         }
     }
 }

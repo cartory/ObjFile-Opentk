@@ -13,24 +13,24 @@ using gameOpenTK.controllers;
 namespace gameOpenTK.models
 {
     class Scene : Volume<Part>
-    {   
-        Hashtable objs;
+    {
+        HashList<Object> objs;
         int ibo_elements;
 
         public Scene() 
         {
-            objs = new Hashtable();
+            objs = new HashList<Object>();
             GL.GenBuffers(1, out ibo_elements);
         }
 
         public override void Draw(int indiceat = 0)
         {
             ShaderManager.Instance.shaders[shader].EnableVertexAttribArrays();
-            foreach (DictionaryEntry entry in list)
+            foreach (DictionaryEntry e in list)
             {
-                Part v = (Part)entry.Value;
-                v.Draw(indiceat);
-                indiceat += v.IndiceCount;
+                Part p = list.Get(e.Key);
+                p.Draw(indiceat);
+                indiceat += p.IndiceCount;
             }
             ShaderManager.Instance.shaders[shader].DisableVertexAttribArrays();
         }
@@ -40,12 +40,11 @@ namespace gameOpenTK.models
             Part[] parts = obj.GetArray();
             foreach (Part part in parts)
             {
-                Add(part.name, part);
+                list.Add(part.name, part);
             }
             objs.Add(obj.name, obj);
         }
 
-        #region updaters
         public override void Update(object camera, Size ClientSize, int vertCount = 0)
         {
             List<int> inds = new List<int>();
@@ -53,14 +52,14 @@ namespace gameOpenTK.models
             List<Vector3> colors = new List<Vector3>();
             List<Vector2> texcoords = new List<Vector2>();
 
-            foreach (DictionaryEntry entry in list)
+            foreach (DictionaryEntry e in list)
             {
-                Part v = (Part)entry.Value;
-                verts.AddRange(v.GetVerts().ToList());
-                inds.AddRange(v.GetIndices(vertCount).ToList());
-                colors.AddRange(v.GetColorData().ToList());
-                texcoords.AddRange(v.GetTextureCoords());
-                vertCount += v.VertCount;
+                Part p = list.Get(e.Key);
+                verts.AddRange(p.GetVerts().ToList());
+                inds.AddRange(p.GetIndices(vertCount).ToList());
+                colors.AddRange(p.GetColorData().ToList());
+                texcoords.AddRange(p.GetTextureCoords());
+                vertCount += p.VertCount;
             }
 
             var coldata = colors.ToArray();
@@ -91,10 +90,9 @@ namespace gameOpenTK.models
                 GL.VertexAttribPointer(shaders[shader].GetAttribute("texcoord"), 2, VertexAttribPointerType.Float, true, 0, 0);
             }
 
-            foreach (DictionaryEntry entry in list)
+            foreach (DictionaryEntry e in list)
             {
-                Part v = (Part)entry.Value;
-                v.Update(camera, ClientSize);
+                list.Get(e.Key).Update(camera, ClientSize);
             }
 
             GL.UseProgram(shaders[shader].ProgramID);
@@ -103,8 +101,7 @@ namespace gameOpenTK.models
 
             // Buffer index data
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, ibo_elements);
-            GL.BufferData(BufferTarget.ElementArrayBuffer, (System.IntPtr)(indicedata.Length * sizeof(int)), indicedata, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ElementArrayBuffer, (System.IntPtr)(indicedata.Length * sizeof(int)), indicedata, BufferUsageHint.DynamicDraw);
         }
-        #endregion
     }
 }
