@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Collections;
 using gameOpenTK.common;
 using gameOpenTK.models;
+using System.Threading;
 
 namespace gameOpenTK.controllers
 {
@@ -30,10 +31,10 @@ namespace gameOpenTK.controllers
 
         void initProgram()
         {
+            tank = new Tank("player1");
             scene = new Scene();
             camera = new Camera();
             maze = new Maze("maze");
-            tank = new Tank("player1");
             lastMousePos = new Vector2();
 
             camera.MouseSensitivity = 0.005f;
@@ -55,7 +56,7 @@ namespace gameOpenTK.controllers
         }
         public void OnRenderFrame(int Width, int Height)
         {
-            GL.Viewport(0, 0, Width, Height);
+            //GL.Viewport(0, 0, Width, Height);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.Enable(EnableCap.DepthTest);
             scene.Draw();
@@ -65,7 +66,7 @@ namespace gameOpenTK.controllers
         public void OnUpdateFrame(Size ClientSize, bool Focused)
         {
             InputController.Instance.ProcessKeyBoard(Keyboard.GetState(), camera, tank);
-            if (Focused) 
+            if (Focused)
             {
                 InputController.Instance.UpdateMouseSlide(Mouse.GetState(), camera, ref lastMousePos);
             }

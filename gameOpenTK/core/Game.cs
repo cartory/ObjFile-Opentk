@@ -4,6 +4,7 @@ using OpenTK.Graphics;
 using OpenTK.Input;
 using gameOpenTK.controllers;
 using gameOpenTK.common;
+using OpenTK.Graphics.OpenGL;
 
 namespace gameOpenTK
 {
@@ -24,6 +25,7 @@ namespace gameOpenTK
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             base.OnRenderFrame(e);
+            GL.Viewport(ClientRectangle);
             GameController.Instance.OnRenderFrame(Width, Height);
             SwapBuffers();
         }
@@ -62,6 +64,7 @@ namespace gameOpenTK
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
+            //GL.Viewport(this.ClientRectangle);
         }
 
         protected override void OnUnload(EventArgs e)

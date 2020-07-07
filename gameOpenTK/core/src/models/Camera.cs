@@ -9,8 +9,8 @@ namespace gameOpenTK.models
 {
     class Camera
     {
-        public Vector3 Position = new Vector3(-1, 1, 0);
-        public Vector3 Orientation = new Vector3((float)Math.PI, 0f, 0f);
+        public Vector3 Position = new Vector3(0, 8, -4f);
+        public Vector3 Orientation = new Vector3((float)Math.PI, -(float)Math.PI, 0f);
         public float MoveSpeed = 0.2f;
         public float MouseSensitivity = 0.0025f;
 
