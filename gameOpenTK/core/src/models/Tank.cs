@@ -31,19 +31,21 @@ namespace gameOpenTK.models
             //  forward (-) Z, backward (+)
             if (forward)
             {
-                if (!Maze.contains(sqr, -dx, dz, position)) return;
+                if (!Maze.Instance.contains(sqr, -dx + pos.X, dz + pos.Z)) return;
+                if (Maze.Instance.hitWall(sqr, -dx + pos.X, dz + pos.Z)) return;
                 TraslateZ(dz);
                 TraslateX(-dx);
-                this.position += new Vector3(-dx, 0, dz);
+                updatePos(-dx, dz);
             }
             else 
             {
-                if (!Maze.contains(sqr, dx, -dz, position)) return;
+                if (!Maze.Instance.contains(sqr, dx + pos.X, -dz + pos.Z)) return;
+                if (Maze.Instance.hitWall(sqr, dx + pos.X, -dz + pos.Z)) return;
                 TraslateZ(-dz);
                 TraslateX(dx);
-                this.position += new Vector3(dx, 0, -dz);
+                updatePos(dx, -dz);
             }
-            Console.WriteLine(position);
+            //Console.WriteLine(pos);
         }
 
         internal void Shoot() => Console.WriteLine("SHOOT!!");
@@ -52,14 +54,14 @@ namespace gameOpenTK.models
         {
             parts.Get(body).RotateY(left);
             UpdateAngle(left);
-            Console.WriteLine(angle);
+            //Console.WriteLine(this.pos);
         }
 
         public void Rotate(bool left) 
         {
             RotateY(left);
             UpdateAngle(left);
-            Console.WriteLine(angle);
+            //Console.WriteLine(this.pos);
         }
         private void UpdateAngle(bool dir) => angle = (angle + ((dir)? -theta: theta)) % 360;
     }

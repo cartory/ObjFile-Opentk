@@ -10,7 +10,7 @@ namespace gameOpenTK
     {
         static void Main(string[] args)
         {
-            using (Game game = new Game(1024, 720, "GAME OPENTK"))
+            using (Game game = new Game(516, 360, "GAME OPENTK"))
             {
                 game.Run(30.0, 30.0);
             }

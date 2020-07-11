@@ -3,7 +3,6 @@ using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Input;
 using gameOpenTK.controllers;
-using gameOpenTK.common;
 using OpenTK.Graphics.OpenGL;
 
 namespace gameOpenTK

@@ -34,7 +34,7 @@ namespace gameOpenTK.controllers
             tank = new Tank("player1");
             scene = new Scene();
             camera = new Camera();
-            maze = new Maze("maze");
+            maze = Maze.Instance;
             lastMousePos = new Vector2();
 
             camera.MouseSensitivity = 0.005f;
@@ -43,7 +43,7 @@ namespace gameOpenTK.controllers
 
             tank.setScale(.0000001f);
             maze.setScale(.000001f);
-
+            tank.setPos(-1, 0);
             scene.Add(tank);
             scene.Add(maze);
         }

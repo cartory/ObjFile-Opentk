@@ -1,5 +1,6 @@
 ﻿using gameOpenTK.common;
 using OpenTK;
+using OpenTK.Graphics.ES20;
 using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections;
@@ -17,7 +18,7 @@ namespace gameOpenTK.models
         public string name;
         protected HashList<Part> parts;
         protected float step, scale, theta;
-        protected Vector3 position = Vector3.Zero;
+        protected Vector3 pos = Vector3.Zero;
 
         public Object(string name)
         {
@@ -43,6 +44,47 @@ namespace gameOpenTK.models
             Part[] array = new Part[parts.Count];
             parts.list.Values.CopyTo(array, 0);
             return array;
+        }
+
+        protected void updatePos(float dx, float dz) 
+        {
+            this.pos += new Vector3(dx, 0, dz);
+        }
+
+        public void setPos(float px, float pz) 
+        {
+            if (pos.X < px)
+            {
+                while (pos.X < px)
+                {
+                    pos.X += step;
+                    TraslateX(step);
+                }
+            }
+            else
+            {
+                while (pos.X > px) 
+                {
+                    pos.X -= step;
+                    TraslateX(-step);
+                }
+            }
+
+            if (pos.Z < pz) 
+            {
+                while (pos.Z < pz) 
+                {
+                    pos.Z += step;
+                    TraslateZ(step);
+                }
+            }else
+            {
+                while (pos.Z > pz)
+                {
+                    pos.Z -= step;
+                    TraslateZ(-step);
+                }
+            }
         }
 
         #region setters

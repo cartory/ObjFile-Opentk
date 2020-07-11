@@ -1,10 +1,13 @@
 ﻿using gameOpenTK.common;
 using gameOpenTK.controllers;
 using OpenTK;
+using OpenTK.Audio.OpenAL;
+using OpenTK.Graphics.ES11;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,5 +56,47 @@ namespace gameOpenTK.common
         public int TextureID;
         public int TextureCoordsCount;
         public bool IsTextured = false;
+    }
+
+    public class Segment {
+        private static float width = .1f;
+        public Vector3 p1, p2;
+        public float m;
+        //  Ax + By + C = 0
+        public float A, B, C;
+        public Segment(Vector3 p1, Vector3 p2) 
+        {
+            this.p1 = p1;
+            this.p2 = p2;
+            this.calculateABC();
+        }
+
+        private void calculateABC() 
+        {
+            this.A = p2.Z - p1.Z;
+            this.B = p1.X - p2.X;
+            this.C = -(A * p1.X + B * p1.Z);
+        }
+
+        private float distance(float px, float pz) 
+        {
+            return Math.Abs(A * px + B * pz + C) / (float)Math.Sqrt(A * A + B * B);
+        }
+
+        public bool contains(float px, float pz) {
+            //horizontal
+            if (p1.Z == p2.Z)
+            {
+                return Math.Abs(A * px + B * pz + C) / Math.Sqrt(A * A + B * B) < width && p1.X < px && px < p2.X;
+            }
+            //vertical
+            if (p1.X == p2.X)
+            {
+                return Math.Abs(A * px + B * pz + C) / Math.Sqrt(A * A + B * B) < width && p2.Z < pz && pz < p1.Z;
+            }
+            return Math.Abs(A * px + B * pz + C) / Math.Sqrt(A * A + B * B) < width && p1.X < px && px < p2.X && p1.Z < pz && pz < p2.Z;
+        }
+
+        //public override string ToString() => $"A: {a}\tB:{b}";
     }
 }
