@@ -67,16 +67,16 @@ namespace gameOpenTK.models
             return hit(walls[m], sqr, width, px, pz);
         }
 
-        private bool hitTank(Tank tank, float sqr, float width, float px, float pz) 
+        private bool hitTank(Tank tank, float sqr, float width, float px, float pz, bool isBullet)
         {
             return
-                tank.hitTank(px + sqr, pz + width) || tank.hitTank(px + sqr, pz - width) ||
-                tank.hitTank(px - sqr, pz + width) || tank.hitTank(px - sqr, pz - width);
+                tank.hitTank(px + sqr, pz + width, isBullet) || tank.hitTank(px + sqr, pz - width, isBullet) ||
+                tank.hitTank(px - sqr, pz + width, isBullet) || tank.hitTank(px - sqr, pz - width, isBullet);
         }
 
-        public bool hitWall(Tank tank, float sqr, float width, float px, float pz)
+        public bool hitWall(Tank tank, float sqr, float width, float px, float pz, bool isBullet)
         {
-            if (!hitTank(tank, sqr, width, px, pz)) 
+            if (!hitTank(tank, sqr, width, px, pz, isBullet)) 
             {
                 foreach (Segment wall in walls)
                 {
@@ -87,7 +87,7 @@ namespace gameOpenTK.models
                 }
                 return false;
             }
-            Console.WriteLine("TANK DAMAGED!!!");
+            //Console.WriteLine("TANK DAMAGED!!!");
             return true;
         }
 

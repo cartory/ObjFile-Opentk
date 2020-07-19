@@ -21,7 +21,7 @@ namespace gameOpenTK.models
         static float radio = .1f;
         static float width = .17f;
 
-        private int life = 3;
+        private int life = 10;
         private int lastTime = 0;
 
         private float angle = 0;
@@ -57,13 +57,13 @@ namespace gameOpenTK.models
             //  forward (-) Z, backward (+)
             if (forward)
             {
-                if (Maze.Instance.hitWall(tank, sqr, width, -dx + pos.X, dz + pos.Z)) return;
+                if (Maze.Instance.hitWall(tank, sqr, width, -dx + pos.X, dz + pos.Z, false)) return;
                 Traslate(new Vector3(-dx, 0, dz));
                 updatePos(-dx, dz);
             }
             else
             {
-                if (Maze.Instance.hitWall(tank, sqr, width, dx + pos.X, -dz + pos.Z)) return;
+                if (Maze.Instance.hitWall(tank, sqr, width, dx + pos.X, -dz + pos.Z, false)) return;
                 Traslate(new Vector3(dx, 0, -dz));
                 updatePos(dx, -dz);
             }
@@ -86,7 +86,7 @@ namespace gameOpenTK.models
             {
                 Console.WriteLine($"{name} SHOOT !!");
                 lastTime = DateTime.Now.Second % 10;
-                while (!Maze.Instance.hitWall(tank, radio, radio, pos.X, pos.Z))
+                while (!Maze.Instance.hitWall(tank, radio, radio, pos.X, pos.Z, true))
                 {
                     bz += dz;
                     bx += -dx;
@@ -118,11 +118,12 @@ namespace gameOpenTK.models
             UpdateAngle(left);
         }
 
-        public bool hitTank(float px, float pz)
+        public bool hitTank(float px, float pz, bool isBullet)
         { 
             bool h = Math.Abs(pos.X - px) < width && Math.Abs(pos.Z - pz) < width;
-            if (h && isAlive()) 
+            if (h && isAlive() && isBullet) 
             {
+                setStep(step * .95f);
                 Console.WriteLine($"{name} life : {life--}");
             }
             return h;
@@ -160,7 +161,7 @@ namespace gameOpenTK.models
                 setPos(.5f, 2.6f);
                 resetBulletPos();
             }
-            life = 3;
+            life = 10;
             endGame = false;
         }
     }

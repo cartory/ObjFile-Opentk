@@ -31,5 +31,3 @@ C:\Users\USUARIO\Source\Repos\ObjFile-Opentk\gameOpenTK\obj\Debug\gameOpenTK.csp
 C:\Users\USUARIO\Source\Repos\ObjFile-Opentk\gameOpenTK\obj\Debug\gameOpenTK.csproj.CopyComplete
 C:\Users\USUARIO\Source\Repos\ObjFile-Opentk\gameOpenTK\obj\Debug\gameOpenTK.exe
 C:\Users\USUARIO\Source\Repos\ObjFile-Opentk\gameOpenTK\obj\Debug\gameOpenTK.pdb
-C:\Users\USUARIO\Source\Repos\ObjFile-Opentk\gameOpenTK\bin\Debug\QuickFont.dll
-C:\Users\USUARIO\Source\Repos\ObjFile-Opentk\gameOpenTK\bin\Debug\QuickFont.xml
