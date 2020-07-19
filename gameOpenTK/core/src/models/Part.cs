@@ -91,6 +91,10 @@ namespace gameOpenTK.models
         public void TraslateX(float distance) => matrixContainer *= Matrix4.CreateTranslation(new Vector3(distance, 0, 0));
         public void TraslateY(float distance) => matrixContainer *= Matrix4.CreateTranslation(new Vector3(0, distance, 0));
         public void TraslateZ(float distance) => matrixContainer *= Matrix4.CreateTranslation(new Vector3(0, 0, distance));
+        public void Traslate(Vector3 vector) {
+            Position += vector;
+            matrixContainer *= Matrix4.CreateTranslation(vector);
+        } 
         #endregion
     }
 }

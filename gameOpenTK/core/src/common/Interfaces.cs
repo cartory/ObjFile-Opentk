@@ -47,5 +47,6 @@ namespace gameOpenTK.common
         void TraslateX(float distance);
         void TraslateY(float distance);
         void TraslateZ(float distance);
+        void Traslate(Vector3 vector);
     }
 }

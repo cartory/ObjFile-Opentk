@@ -45,6 +45,11 @@ namespace gameOpenTK.models
             objs.Add(obj.name, obj);
         }
 
+        public void Set(Object obj) 
+        {
+            objs.Set(obj.name, obj);
+        }
+
         public override void Update(object camera, Size ClientSize, int vertCount = 0)
         {
             List<int> inds = new List<int>();

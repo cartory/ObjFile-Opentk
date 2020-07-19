@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace gameOpenTK.models
 {
-
     class Maze : Object
     {
         #region singleton
@@ -17,55 +16,115 @@ namespace gameOpenTK.models
         private static Maze instance = new Maze("Maze");
         #endregion
         //  -3f...3f => matrix6
-        static float size = 3f;
         string maze, floor;
         Segment[] walls;
         public Maze(string name) : base(name)
         {
             maze = $"maze{name}";
             floor = $"floor{name}";
-            walls = createWalls();
-            Add(Loader.Instance.LoadFromFile(maze, "maze.obj", ShaderManager.Instance.textures["container"]));
+            walls = this.createWalls();
+            this.sortWallsByDistance();
+
             Add(Loader.Instance.LoadFromFile(floor, "floor.obj", ShaderManager.Instance.textures["metal"]));
+            Add(Loader.Instance.LoadFromFile(maze, "maze.obj", ShaderManager.Instance.textures["container"]));
         }
 
-        public bool contains(float sqr, float dx, float dz)
+        private bool hit(Segment wall, float sqr, float width, float px, float pz) 
         {
-            return dx + sqr < size && 
-                   dx - sqr > -size && 
-                   dz + sqr < size && 
-                   dz - sqr > -size;
+            return
+                wall.contains(px + sqr, pz + width) || wall.contains(px - sqr, pz - width) ||
+                wall.contains(px + sqr, pz - width) || wall.contains(px - sqr, pz + width);
+                //wall.contains(px, pz + width) || wall.contains(px + sqr, pz) ||
+                //wall.contains(px, pz - width) || wall.contains(px - sqr, pz);
         }
 
-        public bool hitWall(float sqr, float px, float pz)
+        private bool hitWall(int a, int b, float sqr, float width, float px, float pz)
         {
-            foreach (Segment wall in walls)
+            int m = (a + b) / 2;
+            float d = px * px + pz * pz;
+            if (d > walls[m].d)
             {
-                if (
-                    wall.contains(px + sqr, pz + sqr) || wall.contains(px - sqr, pz - sqr) ||
-                    wall.contains(px + sqr, pz - sqr) || wall.contains(px - sqr, pz + sqr) ||
-
-                    wall.contains(px, pz + sqr) || wall.contains(px, pz - sqr) ||
-                    wall.contains(px, pz - sqr) || wall.contains(px, pz + sqr)
-                )
+                if (m < b)
                 {
-                    Console.WriteLine("HIT!!!");
-                    return true;
+                    if (d < walls[m + 1].d)
+                    {
+                        return hit(walls[m], sqr, width, px, pz) || hit(walls[m + 1], sqr, width, px, pz);
+                    }
+                    return hitWall(m + 1, b, sqr, width, px, pz);
                 }
             }
-            return false;
+            else 
+            {
+                if (m > a) 
+                {
+                    if (d > walls[m - 1].d) 
+                    {
+                        return hit(walls[m - 1], sqr, width, px, pz) || hit(walls[m], sqr, width, px, pz);
+                    }
+                    return hitWall(a, m - 1, sqr, width, px, pz);
+                }
+            }
+            return hit(walls[m], sqr, width, px, pz);
         }
+
+        private bool hitTank(Tank tank, float sqr, float width, float px, float pz) 
+        {
+            return
+                tank.hitTank(px + sqr, pz + width) || tank.hitTank(px + sqr, pz - width) ||
+                tank.hitTank(px - sqr, pz + width) || tank.hitTank(px - sqr, pz - width);
+        }
+
+        public bool hitWall(Tank tank, float sqr, float width, float px, float pz)
+        {
+            if (!hitTank(tank, sqr, width, px, pz)) 
+            {
+                foreach (Segment wall in walls)
+                {
+                    if (hit(wall, sqr, width, px, pz))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            Console.WriteLine("TANK DAMAGED!!!");
+            return true;
+        }
+
+        private void sortWallsByDistance() 
+        {
+            int n = walls.Length;
+            for (int i = 0; i < n - 1; i++) 
+            {
+                for (int j = 0; j < n - i - 1; j++)
+                {
+                    if (walls[j].d > walls[j + 1].d) 
+                    {
+                        var tmp = walls[j];
+                        walls[j] = walls[j + 1];
+                        walls[j + 1] = tmp;
+                    }
+                }
+            }
+        }
+
         private Segment[] createWalls(int type = 0)
         {
             return new Segment[] {
                 //RANGE -3..+3
                 //HORIZONTAL
+                new Segment(new Vector3(-3, 0, -3), new Vector3(+3, 0, -3)),
+                new Segment(new Vector3(-3, 0, +3), new Vector3(+3, 0, +3)),
+
                 new Segment(new Vector3(-2, 0, -2), new Vector3(+2, 0, -2)),
                 new Segment(new Vector3(-1, 0, -1), new Vector3(+0, 0, -1)),
                 new Segment(new Vector3(-3, 0, +0), new Vector3(-2, 0, +0)),
                 new Segment(new Vector3(-2, 0, +1), new Vector3(+2, 0, +1)),
                 new Segment(new Vector3(-1, 0, +2), new Vector3(+1, 0, +2)),
                 //VERTICAL
+                new Segment(new Vector3(-3, 0, +3), new Vector3(-3, 0, -3)),
+                new Segment(new Vector3(+3, 0, +3), new Vector3(+3, 0, -3)),
+
                 new Segment(new Vector3(-2, 0, -1), new Vector3(-2, 0, -2)),
                 new Segment(new Vector3(-2, 0, +2), new Vector3(-2, 0, +1)),
                 new Segment(new Vector3(-1, 0, +3), new Vector3(-1, 0, +2)),
@@ -73,7 +132,6 @@ namespace gameOpenTK.models
                 new Segment(new Vector3(+1, 0, +2), new Vector3(+1, 0, -1)),
                 new Segment(new Vector3(+2, 0, +3), new Vector3(+2, 0, +2)),
                 new Segment(new Vector3(+2, 0, +1), new Vector3(+2, 0, -2)),
-
             };
         }
     }

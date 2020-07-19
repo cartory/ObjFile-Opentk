@@ -18,7 +18,7 @@ namespace gameOpenTK.controllers
         private static ShaderManager instance = new ShaderManager();
         #endregion
 
-        string path = @"C:\Users\javie\source\repos\ObjFile-Opentk\gameOpenTK\core\files\";
+        string path = @"C:\Users\USUARIO\Source\Repos\ObjFile-Opentk\gameOpenTK\core\files\";
 
         public Dictionary<string, int> textures = new Dictionary<string, int>();
         public Dictionary<string, ShaderProgram> shaders = new Dictionary<string, ShaderProgram>();

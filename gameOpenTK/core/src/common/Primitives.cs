@@ -64,11 +64,19 @@ namespace gameOpenTK.common
         public float m;
         //  Ax + By + C = 0
         public float A, B, C;
+        public float d;
         public Segment(Vector3 p1, Vector3 p2) 
         {
             this.p1 = p1;
             this.p2 = p2;
             this.calculateABC();
+            this.calculateDistance();
+        }
+
+        private void calculateDistance() 
+        {
+            Vector3 m = new Vector3((p1.X + p2.X) / 2, (p1.Y + p2.Y) / 2, (p1.Z + p2.Z) / 2);
+            this.d = (float)Math.Sqrt(m.X * m.X + m.Y * m.Y + m.Z * m.Z);
         }
 
         private void calculateABC() 
@@ -87,14 +95,14 @@ namespace gameOpenTK.common
             //horizontal
             if (p1.Z == p2.Z)
             {
-                return Math.Abs(A * px + B * pz + C) / Math.Sqrt(A * A + B * B) < width && p1.X < px && px < p2.X;
+                return distance(px, pz) < width && p1.X < px && px < p2.X;
             }
             //vertical
             if (p1.X == p2.X)
             {
-                return Math.Abs(A * px + B * pz + C) / Math.Sqrt(A * A + B * B) < width && p2.Z < pz && pz < p1.Z;
+                return distance(px, pz) < width && p2.Z < pz && pz < p1.Z;
             }
-            return Math.Abs(A * px + B * pz + C) / Math.Sqrt(A * A + B * B) < width && p1.X < px && px < p2.X && p1.Z < pz && pz < p2.Z;
+            return distance(px, pz) < width && p1.X < px && px < p2.X && p1.Z < pz && pz < p2.Z;
         }
 
         //public override string ToString() => $"A: {a}\tB:{b}";

@@ -39,6 +39,8 @@ namespace gameOpenTK.models
             parts.Add(part.name, part);
         }
 
+        public void Del(string key) => parts.Del(key);
+
         public Part[] GetArray()
         {
             Part[] array = new Part[parts.Count];
@@ -84,6 +86,10 @@ namespace gameOpenTK.models
                     pos.Z -= step;
                     TraslateZ(-step);
                 }
+            }
+            foreach (DictionaryEntry e in parts)
+            {
+                parts.Get(e.Key).Position= pos;
             }
         }
 
@@ -220,6 +226,14 @@ namespace gameOpenTK.models
             foreach (DictionaryEntry e in parts)
             {
                 parts.Get(e.Key).TraslateZ(distance);
+            }
+        }
+
+        public virtual void Traslate(Vector3 vector) 
+        {
+            foreach (DictionaryEntry e in parts)
+            {
+                parts.Get(e.Key).Traslate(vector);
             }
         }
         #endregion

@@ -36,6 +36,9 @@
     <Reference Include="OpenTK, Version=3.2.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenTK.3.2\lib\net20\OpenTK.dll</HintPath>
     </Reference>
+    <Reference Include="QuickFont, Version=3.0.2.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QuickFont.3.0.2.1\lib\net40\QuickFont.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -47,8 +50,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="core\files\arial.ttf" />
     <None Include="core\files\objs\base.obj" />
     <None Include="core\files\objs\floor.obj" />
+    <None Include="core\files\objs\sphere.obj" />
     <None Include="core\files\objs\tank.obj" />
     <Compile Include="core\Game.cs" />
     <Compile Include="core\src\controllers\InputController.cs" />

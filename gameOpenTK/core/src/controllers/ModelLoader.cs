@@ -19,7 +19,7 @@ namespace gameOpenTK.controllers
         public static Loader Instance { get => instance; }
         #endregion
 
-        string path = @"C:\Users\javie\source\repos\ObjFile-Opentk\gameOpenTK\core\files\objs\";
+        string path = @"C:\Users\USUARIO\Source\Repos\ObjFile-Opentk\gameOpenTK\core\files\objs\";
 
         public Part LoadFromFile(string name, string filename, int textureID = 0)
         {
